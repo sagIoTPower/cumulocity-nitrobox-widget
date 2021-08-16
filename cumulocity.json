@@ -1,0 +1,12 @@
+{
+  "name": "Cumulocity Nitrobox Widget",
+  "contextPath": "cumulocity-nitrobox-device-detail-widget",
+  "key": "cumulocity-nitrobox-device-detail-application-key",
+  "contentSecurityPolicy": "default-src 'self'",
+  "icon": {
+    "class": "fa fa-puzzle-piece"
+  },
+  "manifest": {
+    "noAppSwitcher": true
+  }
+}
