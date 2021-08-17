@@ -5,20 +5,18 @@
       <div class="card-content-item">
         <span class="text-truncate"><small class="text-muted">Contract Id:</small></span>
         <span class="text-truncate"><small class="text-muted">Debtor Id:</small></span>
-        <span *ngFor="let product of this.deviceNDetails.products; index as i" class="text-truncate"><small class="text-muted">Product {{i+1}}:</small></span>
+        <span *ngFor="let product of this.deviceNDetails.products; index as i" class="text-truncate"><small
+            class="text-muted">Product {{i+1}}:</small></span>
       </div>
 
-      <!-- <div *ngIf="this.deviceNDetails"> -->
-        <div class="card-content-item card-text-value">
-          <span class="text-truncate" title="{{this.deviceNDetails.contractId}}"><small
-              class="text-muted">{{this.deviceNDetails.contractId}}</small></span>
-          <span class="text-truncate" title="{{this.deviceNDetails.debtorId}}"><small
-              class="text-muted">{{this.deviceNDetails.debtorId}}</small></span>
-          <span *ngFor="let product of this.deviceNDetails.products" class="text-truncate" title="{{product}}"><small
-              class="text-muted">{{product}}</small></span>
-
-        </div>
-      <!-- </div> -->
+      <div class="card-content-item card-text-value">
+        <span class="text-truncate" title="{{this.deviceNDetails.contractId}}"><small
+            class="text-muted">{{this.deviceNDetails.contractId}}</small></span>
+        <span class="text-truncate" title="{{this.deviceNDetails.debtorId}}"><small
+            class="text-muted">{{this.deviceNDetails.debtorId}}</small></span>
+        <span *ngFor="let product of this.deviceNDetails.products" class="text-truncate" title="{{product}}"><small
+            class="text-muted">{{product}}</small></span>
+      </div>
     </div>
   </mat-card-content>
 </mat-card>

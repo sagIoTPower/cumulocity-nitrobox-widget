@@ -4,7 +4,7 @@ import { AssetsNavigatorModule } from '@c8y/ngx-components/assets-navigator';
 import { CockpitDashboardModule } from '@c8y/ngx-components/context-dashboard';
 import { ReportsModule } from '@c8y/ngx-components/reports';
 import { NxDeviceDetailsWidgetComponent } from './nx-device-details-widget.component';
-import { NxDeviceDetailsWidgetConfigComponent } from '../nx-device-details-widget-config/nx-device-details-widget-config.component';
+import { NxDeviceDetailsWidgetConfigComponent } from '../nx-device-details-widget/nx-device-details-widget-config.component';
 import { MatCardModule } from '@angular/material/card';
 import { HttpClient } from '@angular/common/http';
 import { NxDeviceDetailsWidgetService } from '../nx-device-details-widget/nx-device-details-widget.service'
