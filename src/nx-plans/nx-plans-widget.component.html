@@ -1,0 +1,25 @@
+<div class="form-group">
+  <c8y-form-group>
+    <br>
+    <label translate>Search plans ...</label>
+    <!-- <input type="text" name="searchString" style="width:100%" [(ngModel)]="searchString"> -->
+    <input #searchString id="search-box" (input)="searchPlans(searchString.value)" />
+    <br>
+  </c8y-form-group>
+</div>
+
+<div class="list-group">
+  <label>Plans ...</label>
+  <div *ngFor="let plan of plans$| async" class="list-group-item flex-row">
+      <div class="list-item-switch">
+          <label class="c8y-switch">
+              <input id="{{'selected-' + plan.id}}" type="checkbox" [attr.checked]="plan.selected ? 'checked' : null"
+                  (change)="onChange($event)"/>
+              <span></span>
+          </label>
+      </div>
+      <div class="list-item-body">
+          <span name="label">{{plan.id}}</span>
+      </div>
+  </div>
+</div>

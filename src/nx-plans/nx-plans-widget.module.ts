@@ -3,16 +3,18 @@ import { CoreModule, HOOK_COMPONENTS } from '@c8y/ngx-components';
 import { AssetsNavigatorModule } from '@c8y/ngx-components/assets-navigator';
 import { CockpitDashboardModule } from '@c8y/ngx-components/context-dashboard';
 import { ReportsModule } from '@c8y/ngx-components/reports';
-import { NxDeviceDetailsWidgetComponent } from './nx-device-details-widget.component';
-import { NxDeviceDetailsWidgetConfigComponent } from '../nx-device-details-widget/nx-device-details-widget-config.component';
+import { NxPlansWidgetComponent } from './nx-plans-widget.component';
+import { NxPlansWidgetConfigComponent } from './nx-plans-widget-config.component';
 import { MatCardModule } from '@angular/material/card';
 import { HttpClient } from '@angular/common/http';
-import { NxDeviceDetailsWidgetService } from '../nx-device-details-widget/nx-device-details-widget.service'
+import { PlanService } from './nx-plans-widget.service';
 import { DatePipe} from '@angular/common';
+import { DataModule } from '@c8y/ngx-components/api';
+
 
 @NgModule({
   declarations: [
-    NxDeviceDetailsWidgetComponent, NxDeviceDetailsWidgetConfigComponent, 
+    NxPlansWidgetComponent, NxPlansWidgetConfigComponent, 
   ],
   imports: [
     CoreModule,
@@ -22,22 +24,22 @@ import { DatePipe} from '@angular/common';
     MatCardModule
   ],
   entryComponents: [
-    NxDeviceDetailsWidgetComponent, NxDeviceDetailsWidgetConfigComponent
+    NxPlansWidgetComponent, NxPlansWidgetConfigComponent, 
   ],
   providers: [
     HttpClient,
     DatePipe,
-    NxDeviceDetailsWidgetService,
+    PlanService,
     {
       provide: HOOK_COMPONENTS,
       multi: true,
       useValue: {
-        id: "com.softwareag.nx.asset.widget",
-        label: "Monetization properties widget",
+        id: "com.softwareag.nx.plans.widget",
+        label: "Display nitrobox plans widget",
         description:
-          "Shows properties relevant for the monetization",
-        component: NxDeviceDetailsWidgetComponent,
-        configComponent: NxDeviceDetailsWidgetConfigComponent,
+          "Display nitrobox plans widget",
+        component: NxPlansWidgetComponent,
+        configComponent: NxPlansWidgetConfigComponent,
         // comment this if you want to test the widget
         //previewImage: require("~styles/previewImage.png"),
         data: {
@@ -56,5 +58,5 @@ import { DatePipe} from '@angular/common';
     },
   ],
 })
-export class NxDeviceDetailsWidgetModule  {
+export class NxPlansWidgetModule  {
 }
