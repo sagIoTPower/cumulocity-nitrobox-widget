@@ -9,7 +9,6 @@ import { MatCardModule } from '@angular/material/card';
 import { HttpClient } from '@angular/common/http';
 import { PlanService } from './nx-plans-widget.service';
 import { DatePipe} from '@angular/common';
-import { DataModule } from '@c8y/ngx-components/api';
 
 
 @NgModule({

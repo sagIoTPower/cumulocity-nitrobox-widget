@@ -1,49 +1,30 @@
 import { Injectable } from '@angular/core';
-import { InventoryService, IdentityService } from '@c8y/client';
+import { InventoryService, IdentityService, Realtime, IManagedObject } from '@c8y/client';
 
 @Injectable()
 export class NxDeviceDetailsWidgetService {
 
   constructor(public inventory: InventoryService,
-              public identity: IdentityService) { }
+    public identity: IdentityService,
+    private realtime: Realtime) { }
 
-    response: any;
-    deviceExternalId: any;
-
-    async getDeviceData(config) {
-
-      let inventory = await this.inventory.detail(config.device.id);
-      //let inventory = await this.inventory.detail("226");
-      this.response = inventory.data;      
-      console.log(this.response);
-
-      //Check that the response is a Group and not a device
-      if (this.response.hasOwnProperty('c8y_IsDevice')) {
-        
-        // Get External Id
-        this.deviceExternalId = await this.getExternalId(config.device.id);
-       // this.deviceExternalId = await this.getExternalId("226");
-
-        console.log('Child Device = ' + config.device.id);
-
-        console.log('External ID = ' + this.deviceExternalId);
-
-      }
-      else {
-
-        alert("Please select a device for this widget to fuction correctly");
-      
-      }
-    
-      return this.deviceExternalId;
+  public async fetchManagedObject<IManagedObject>(id: string) {
+    try {
+      const { data, res } = await (this.inventory.detail(id));
+      return data;
+    } catch (e) {
+      console.log(e);
+      return null;
+    }
   }
 
-  async getExternalId(id) {
 
-    const { data, res, paging } = await this.identity.list(id);
+  subscribeToMOChannel(id: string, callback: (s: object) => void): object {
+    return this.realtime.subscribe(`/managedobjects/${id}`, callback);
+  }
 
-    return data[0].externalId;
-
+  unsubscribeFromMOChannel(subscription: object): object {
+    return this.realtime.unsubscribe(subscription);
   }
 
 }
