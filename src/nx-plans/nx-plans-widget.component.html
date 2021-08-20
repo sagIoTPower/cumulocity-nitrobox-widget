@@ -72,7 +72,7 @@
       </td>
       <td class="datapoint text-left">{{plan.name}}</td>
       <td class="datapoint text-left">{{plan.planId}}</td>
-      <td class="datapoint text-left" id="{{'option-' + plan.planId}}" (click)="openOptionDialog($event)">{{plan.optionsProductname}}</td>
+      <td class="datapoint text-left" ><a id="{{'option-' + plan.planId}}" (click)="openOptionDialog($event)" class="interact">{{plan.optionsProductname}}</a></td>
 <!--       <td class="datapoint text-left">{{plan.planIdent}}</td> -->
     </tr>
   </tbody>

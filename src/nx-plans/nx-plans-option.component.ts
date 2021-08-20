@@ -26,8 +26,8 @@ import { BsModalRef } from 'ngx-bootstrap/modal';
           </thead>
           <tbody>
               <tr *ngFor="let option of options">
-              <td class="datapoint text-left">{{option.name}}</td>
-              <td class="datapoint text-right">{{(option.itemPriceNet | number : '1.2-2') + " " + option.currency}}</td>
+              <td class="text-left">{{option.name}}</td>
+              <td class="text-right">{{(option.itemPriceNet | number : '1.2-2') + " " + option.currency}}</td>
               </tr>
           </tbody>
           </table>
