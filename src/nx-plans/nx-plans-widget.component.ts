@@ -2,10 +2,12 @@ import { Component, ElementRef, OnInit, Input, Output, EventEmitter } from '@ang
 import { Observable, Subject } from 'rxjs'
 import { PlanService } from './nx-plans-widget.service'
 import { IManagedObject, InventoryService } from '@c8y/client';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 
 import {
   debounceTime, distinctUntilChanged, switchMap
 } from 'rxjs/operators';
+import { NxPlansOptionComponent } from './nx-plans-option.component';
 
 @Component({
   selector: 'c8y-nx-plan-list',
@@ -16,9 +18,13 @@ export class NxPlansWidgetComponent implements OnInit {
   plans$: Observable<Plan[]>;
   plans: Plan[];
   deviceDetails: any;
+  options: Option[] = [];
   private searchTerms = new Subject<string>();
+  bsModalRef: BsModalRef;
 
-  constructor(private planService: PlanService, public inventory: InventoryService,) { }
+  constructor(private planService: PlanService, public inventory: InventoryService, 
+    private modalService: BsModalService,
+    ) { }
 
   // Push a search term into the observable stream.
   searchPlans(term: string): void {
@@ -58,6 +64,22 @@ export class NxPlansWidgetComponent implements OnInit {
     this.searchPlans("*");
   }
 
+  openOptionDialog(event) {
+    this.plans.forEach(plan => {
+      console.log("Finding",event.target.id , "option-" + plan.planId )
+    if (event.target.id == "option-" + plan.planId) {
+        this.options = plan.options
+        const initialState = {
+          options: this.options,
+          plan: plan.planIdent
+        };
+        this.bsModalRef = this.modalService.show(NxPlansOptionComponent, {initialState});
+      }
+    })
+
+    
+  }
+
   onChange(event) {
     //console.log("onChangeGeneric:", event.target.checked, event.target.id)
     this.plans.forEach(plan => {
@@ -83,16 +105,29 @@ export class NxPlansWidgetComponent implements OnInit {
 }
 
 export class Plan {
-  constructor(planId: string, planIdent: string, name: string, optionsProductname: string, selected: boolean) {
+  constructor(planId: string, planIdent: string, name: string, optionsProductname: string, options: Option[],selected: boolean) {
     this.planId = planId
     this.planIdent = planIdent
     this.name = name
     this.optionsProductname = optionsProductname
+    this.options = options
     this.selected = selected
   }
   planId: string
   planIdent: string
   name: string
   optionsProductname: string
+  options: Option[]
   selected: boolean
+}
+
+export class Option {
+  constructor(name: string, itemPriceNet: number, currency: string) {
+    this.name = name
+    this.itemPriceNet = itemPriceNet
+    this.currency = currency
+  }
+  name: string
+  itemPriceNet: number
+  currency: string
 }

@@ -71,8 +71,8 @@
         </label>
       </td>
       <td class="datapoint text-left">{{plan.name}}</td>
-      <td class="datapoint text-ledt">{{plan.planId}}</td>
-      <td class="datapoint text-ledt">{{plan.optionsProductname}}</td>
+      <td class="datapoint text-left">{{plan.planId}}</td>
+      <td class="datapoint text-left" id="{{'option-' + plan.planId}}" (click)="openOptionDialog($event)">{{plan.optionsProductname}}</td>
 <!--       <td class="datapoint text-left">{{plan.planIdent}}</td> -->
     </tr>
   </tbody>

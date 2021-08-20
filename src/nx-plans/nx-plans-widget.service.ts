@@ -1,7 +1,7 @@
 import { Injectable} from '@angular/core'
 import { Observable, of } from 'rxjs'
 import { catchError, map, tap } from 'rxjs/operators'
-import { Plan } from './nx-plans-widget.component'
+import { Plan, Option } from './nx-plans-widget.component'
 import { IFetchOptions, FetchClient } from '@c8y/client'
 
 @Injectable()
@@ -35,6 +35,12 @@ export class PlanService{
           { result.push(plan)
             plan.selected = false
             plan.optionsProductname = plan['phases'][0]['options'].map(element => element['name']).join('/');  
+            let options : Option[] = [];
+            plan['phases'][0]['options'].forEach(option => {options.push( new Option(option.name, option.itemPriceNet, option.currency))             
+            });
+            // plan['phases'][0]['options'].forEach(option => {console.log("Option",option)             
+            // });
+            plan.options = options;
             //console.log ("WWW", plan.optionsProductname )            
           });
           console.log ("Result", result);

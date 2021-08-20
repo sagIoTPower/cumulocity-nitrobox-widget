@@ -9,21 +9,24 @@ import { MatCardModule } from '@angular/material/card';
 import { HttpClient } from '@angular/common/http';
 import { PlanService } from './nx-plans-widget.service';
 import { DatePipe} from '@angular/common';
+import { NxPlansOptionComponent } from './nx-plans-option.component';
+import { ModalModule } from 'ngx-bootstrap/modal';
 
 
 @NgModule({
   declarations: [
-    NxPlansWidgetComponent, NxPlansWidgetConfigComponent, 
+    NxPlansWidgetComponent, NxPlansWidgetConfigComponent, NxPlansOptionComponent,
   ],
   imports: [
     CoreModule,
     AssetsNavigatorModule,
     ReportsModule,
     CockpitDashboardModule,
-    MatCardModule
+    MatCardModule,
+    ModalModule.forRoot()
   ],
   entryComponents: [
-    NxPlansWidgetComponent, NxPlansWidgetConfigComponent, 
+    NxPlansWidgetComponent, NxPlansWidgetConfigComponent, NxPlansOptionComponent,
   ],
   providers: [
     HttpClient,
