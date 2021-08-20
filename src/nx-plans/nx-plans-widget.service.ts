@@ -8,7 +8,6 @@ import { IFetchOptions, FetchClient } from '@c8y/client'
 export class PlanService{
   constructor(
     private fetchClient: FetchClient,
-
   ) { 
   }
   

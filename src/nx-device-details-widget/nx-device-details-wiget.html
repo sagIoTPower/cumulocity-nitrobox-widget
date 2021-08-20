@@ -2,23 +2,38 @@
   <mat-card-content>
     <div class="card-content" *ngIf="this.deviceDetails">
 
-      <div class="card-content-item">
+<!--       <div class="card-content-item">
         <span class="text-truncate"><small class="text-muted">Contract Id:</small></span>
         <span class="text-truncate"><small class="text-muted">Debtor Id:</small></span>
         <span class="text-truncate"><small class="text-muted">Plan Id:</small></span>
         <span *ngFor="let product of this.deviceDetails.products; index as i" class="text-truncate"><small
             class="text-muted">Product {{i+1}}:</small></span>
+      </div> -->
+
+      <div class="card-content-item">
+        <span class="text-truncate">Contract Id:</span>
+        <span class="text-truncate">Plan Id:</span>
+        <span *ngFor="let product of this.deviceDetails.products; index as i" class="text-truncate">Product {{i+1}}:</span>
+        <span class="text-truncate">Debtor Id:</span>
       </div>
 
+
+
       <div class="card-content-item card-text-value">
-        <span class="text-truncate" title="{{this.deviceDetails.contractId}}"><small
-            class="text-muted">{{this.deviceDetails.contractId}}</small></span>
-        <span class="text-truncate" title="{{this.deviceDetails.debtorId}}"><small
-            class="text-muted">{{this.deviceDetails.debtorId}}</small></span>
-        <span class="text-truncate" title="{{this.deviceDetails.planId}}"><small
-              class="text-muted">{{this.deviceDetails.planId}}</small></span>
-        <span *ngFor="let product of this.deviceDetails.products" class="text-truncate" title="{{product}}"><small
-            class="text-muted">{{product}}</small></span>
+        <span class="text-truncate" title="{{this.deviceDetails.contractId}}">{{this.deviceDetails.contractId}}</span>
+<!--         <span class="text-truncate" title="{{this.deviceDetails.debtorId}}"><small
+            class="text-muted">{{this.deviceDetails.debtorId}}</small></span> -->
+        <span class="text-truncate" title="{{this.deviceDetails.planId}}">{{this.deviceDetails.planId}}</span>
+        <span *ngFor="let product of this.deviceDetails.products" class="text-truncate" title="{{product}}">{{product}}</span>
+        <c8y-form-group class="c8y-select-wrapper">
+          <select class="form-control" #type="ngModel" name="debtor" [(ngModel)]="selectedDebtor"
+              (change)="debtorChanged($event.target.value)" required>
+              <option [ngValue]="undefined" [disabled]="true">Please select a debtor</option>
+              <option *ngFor="let debtor of debtors$| async"
+                  [value]="debtor.debtorId">{{debtor.debtorId + " " + debtor.debtorIdent}}
+                  </option>
+          </select>
+      </c8y-form-group>
       </div>
     </div>
   </mat-card-content>

@@ -17,6 +17,8 @@ export class NxDeviceDetailsWidgetComponent implements OnInit {
   @Input() config;
   deviceDetails: any;
   subscription: any;
+  debtors$: Observable<Debtor[]>;
+  selectedDebtor : string = '';
 
   constructor(
     public nxDetailService: NxDeviceDetailsWidgetService,
@@ -38,6 +40,7 @@ export class NxDeviceDetailsWidgetComponent implements OnInit {
       this.config.device.id,
       this.updateMO.bind(this)  //bind the component to update
     );
+    this.debtors$ = this.nxDetailService.getDebtors()
   }
 
   ngOnDestroy(): void {
@@ -50,4 +53,31 @@ export class NxDeviceDetailsWidgetComponent implements OnInit {
     //console.log("Changed MO:", o)
     this.deviceDetails = o['c8y_Billing'];
   }
+
+  debtorChanged(debtor: string): void {
+
+    console.log("Debtor changed", debtor)
+  }
+}
+
+export class Debtor {
+  constructor(debtorId: string, debtorIdent: string, addresses: Address[]) {
+    this.debtorId = debtorId
+    this.debtorIdent = debtorIdent
+    this.addresses = addresses
+  }
+  debtorId: string
+  debtorIdent: string
+  addresses: Address[]
+}
+
+export class Address {
+  constructor(addressId: string, addressType: string, city: string) {
+    this.addressId = addressId
+    this.addressType = addressType
+    this.city = city
+  }
+  addressId: string
+  addressType: string
+  city: string
 }
