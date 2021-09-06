@@ -1,10 +1,43 @@
 import { Injectable } from '@angular/core';
 import { InventoryService, IdentityService, Realtime, IManagedObject, IFetchOptions, FetchClient } from '@c8y/client';
 import { Observable } from 'rxjs';
-import { Address, Debtor } from './nx-device-details-widget.component';
+import { Address, Contract, Debtor } from './nx-device-details-widget.component';
 
 @Injectable()
 export class NxDeviceDetailsWidgetService {
+  createContract(contract: Contract): Observable <Contract> {
+    const options: IFetchOptions = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body:  JSON.stringify(contract)
+    };
+    return new Observable <Contract>(observer => {
+      //Make use of Fetch API to get data from URL                              
+      this.fetchClient.fetch(`service/nitrobox/v2/contracts`, options)
+        .then(res => {
+          if (res.status == 500) {
+            throw `Server error: [${res.status}]`;
+          }
+          /*The response.json() doesn't return json, it returns a "readable stream" which is a promise which needs to be resolved to get the actual data.*/
+          return res.json();
+        })
+        .then(body => {
+          let result : Contract = new Contract(body.contractId, body.debtorId,body.date,body.planId,body.contractIdent,body.invoiceAddressId);
+          console.log ("Result", result);
+          observer.next(result);
+          /*Complete the Observable as it won't produce any more event */
+          observer.complete();
+        })
+        //Handle error
+        .catch(err => 
+          {         
+            let result : Contract = null
+            console.log ("Error Result", result);
+            observer.next(result);
+            observer.complete();
+          });
+    })
+  }
 
   constructor(public inventory: InventoryService,
     public identity: IdentityService,

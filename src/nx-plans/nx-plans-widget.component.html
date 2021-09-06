@@ -34,7 +34,7 @@
       <tr *ngFor="let plan of plans">
         <td class="datapoint text-center">
           <label class="c8y-switch">
-            <input id="{{'selected-' + plan.planId}}" type="checkbox" [attr.checked]="plan.selected ? 'checked' : null"
+            <input id="{{'selected-' + plan.planId}}" type="checkbox" [attr.checked]="plan.selected ? 'checked' : null" [attr.disabled]="deviceDetails.planId ? '' : null"
               [(ngModel)]="plan.selected" (change)="onChange($event)" />
             <span></span>
           </label>

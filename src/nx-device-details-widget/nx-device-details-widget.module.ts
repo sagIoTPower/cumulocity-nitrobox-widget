@@ -9,7 +9,6 @@ import { MatCardModule } from '@angular/material/card';
 import { HttpClient } from '@angular/common/http';
 import { NxDeviceDetailsWidgetService } from '../nx-device-details-widget/nx-device-details-widget.service'
 import { DatePipe} from '@angular/common';
-
 @NgModule({
   declarations: [
     NxDeviceDetailsWidgetComponent, NxDeviceDetailsWidgetConfigComponent, 

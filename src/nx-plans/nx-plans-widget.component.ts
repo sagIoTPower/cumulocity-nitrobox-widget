@@ -18,6 +18,7 @@ export class NxPlansWidgetComponent implements OnInit {
   plans$: Observable<Plan[]>;
   plans: Plan[];
   deviceDetails: any;
+  disabled: boolean = false;
   options: Option[] = [];
   private searchTerms = new Subject<string>();
   bsModalRef: BsModalRef;
@@ -84,11 +85,13 @@ export class NxPlansWidgetComponent implements OnInit {
     //console.log("onChangeGeneric:", event.target.checked, event.target.id)
     this.plans.forEach(plan => {
       if (event.target.id == "selected-" + plan.planId) {
+        this.deviceDetails = {
+          ...this.deviceDetails,
+          ...{ planId: plan.planId + '' }
+        }
+        
         const partialUpdateObject: Partial<IManagedObject> = {
-          c8y_Billing:  {
-            ...this.deviceDetails,
-            ...{ planId: plan.planId+'' }
-          },
+          c8y_Billing:  this.deviceDetails,
           id: this.config.device.id
         };
 

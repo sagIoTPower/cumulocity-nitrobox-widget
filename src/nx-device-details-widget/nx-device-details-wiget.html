@@ -1,15 +1,6 @@
 <mat-card class="example-card">
   <mat-card-content>
-    <div class="card-content" *ngIf="this.deviceDetails">
-
-<!--       <div class="card-content-item">
-        <span class="text-truncate"><small class="text-muted">Contract Id:</small></span>
-        <span class="text-truncate"><small class="text-muted">Debtor Id:</small></span>
-        <span class="text-truncate"><small class="text-muted">Plan Id:</small></span>
-        <span *ngFor="let product of this.deviceDetails.products; index as i" class="text-truncate"><small
-            class="text-muted">Product {{i+1}}:</small></span>
-      </div> -->
-
+    <!--     <div class="card-content" *ngIf="this.deviceDetails">
       <div class="card-content-item">
         <span class="text-truncate">Contract Id:</span>
         <span class="text-truncate">Plan Id:</span>
@@ -17,12 +8,8 @@
         <span class="text-truncate">Debtor Id:</span>
       </div>
 
-
-
       <div class="card-content-item card-text-value">
         <span class="text-truncate" title="{{this.deviceDetails.contractId}}">{{this.deviceDetails.contractId}}</span>
-<!--         <span class="text-truncate" title="{{this.deviceDetails.debtorId}}"><small
-            class="text-muted">{{this.deviceDetails.debtorId}}</small></span> -->
         <span class="text-truncate" title="{{this.deviceDetails.planId}}">{{this.deviceDetails.planId}}</span>
         <span *ngFor="let product of this.deviceDetails.products" class="text-truncate" title="{{product}}">{{product}}</span>
         <c8y-form-group class="c8y-select-wrapper">
@@ -35,6 +22,64 @@
           </select>
       </c8y-form-group>
       </div>
+    </div> -->
+
+    <table class="table" *ngIf="this.deviceDetails">
+      <tbody>
+        <tr>
+          <td scope="row">Contract Id:</td>
+          <td scope="row">
+            <span class="text-truncate" title="{{this.deviceDetails.contractId}}"
+              #deviceName>{{this.deviceDetails.contractId}}</span>
+          </td>
+        </tr>
+        <tr>
+          <td scope="row">Plan Id:</td>
+          <td scope="row">
+            <span class="text-truncate" title="{{this.deviceDetails.planId}}"
+              #deviceName>{{this.deviceDetails.planId}}</span>
+          </td>
+        </tr>
+        <tr>
+          <td scope="row"><span *ngFor="let product of this.deviceDetails.products; index as i" class="text-truncate">Product {{i+1}}:</span></td>
+          <td scope="row">
+            <span *ngFor="let product of this.deviceDetails.products" class="text-truncate" title="{{product}}">{{product}}</span>
+          </td>
+        </tr>
+        <tr>
+          <td scope="row">Debtor Id:</td>
+          <td scope="row">
+            <select class="form-control" #type="ngModel" name="debtor" [(ngModel)]="selectedDebtor"
+              (change)="debtorChanged($event.target.value)" required  [attr.disabled]="deviceDetails.contractId ? '' : null">
+              <option [ngValue]="undefined" [disabled]="true">Please select a debtor</option>
+              <option *ngFor="let debtor of debtors$| async" [value]="debtor.debtorId">{{debtor.debtorId + " " +
+                debtor.debtorIdent}}
+              </option>
+            </select>
+          </td>
+        </tr>
+
+        <tr>
+          <td scope="row">Address Id:</td>
+          <td scope="row">
+            <select class="form-control" #type="ngModel" name="address" [(ngModel)]="selectedAddress"
+              (change)="addressChanged($event.target.value)" required  [attr.disabled]="deviceDetails.contractId ? '' : null">
+              <option [ngValue]="undefined" [disabled]="true">Please select an address</option>
+              <option *ngFor="let address of address$| async" [value]="address.addressId">{{address.addressType + " " +
+                address.city}}
+              </option>
+            </select>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="form-group">
+        <button type="button"
+            (click)="createContract()"
+            class="btn btn-primary">
+            Create contract
+        </button>
     </div>
   </mat-card-content>
 </mat-card>
